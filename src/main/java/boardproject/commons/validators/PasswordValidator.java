@@ -1,4 +1,4 @@
-package org.koreait.commons.validators;
+package boardproject.commons.validators;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
