@@ -13,6 +13,7 @@ import org.springframework.validation.Validator;
 public class JoinValidator implements Validator, MobileValidator, PasswordValidator {
 
     private final MemberRepository memberRepository;
+
     @Override
     public boolean supports(Class<?> clazz) {
         return JoinForm.class.isAssignableFrom(clazz);
@@ -29,7 +30,7 @@ public class JoinValidator implements Validator, MobileValidator, PasswordValida
          * 6. 필수 약관 동의 체크
          */
 
-        JoinForm joinForm =(JoinForm) target;
+        JoinForm joinForm = (JoinForm) target;
         String userId = joinForm.getUserId();
         String userPw = joinForm.getUserPw();
         String userPwRe = joinForm.getUserPwRe();
@@ -41,7 +42,7 @@ public class JoinValidator implements Validator, MobileValidator, PasswordValida
             errors.rejectValue("userId", "Validation.duplicate.userId");
         }
 
-      // 2. 비밀번호 복잡성 체크(알파벳(대문자, 소문자), 숫자, 특수문자))
+        // 2. 비밀번호 복잡성 체크(알파벳(대문자, 소문자), 숫자, 특수문자))
         if (userPw != null && !userPw.isBlank()
                 && (!alphaCheck(userPw, false)
                 || !numberCheck(userPw)
@@ -50,8 +51,7 @@ public class JoinValidator implements Validator, MobileValidator, PasswordValida
             errors.rejectValue("userPw", "Validation.complexity.password");
         }
 
-
-        //3. 비밀번호와 비밀번호 확인 일치
+        // 3. 비밀번호와 비밀번호 확인 일치
         if (userPw != null && !userPw.isBlank()
                 && userPwRe != null && !userPwRe.isBlank() && !userPw.equals(userPwRe)) {
             errors.rejectValue("userPwRe", "Validation.incorrect.userPwRe");
@@ -63,12 +63,13 @@ public class JoinValidator implements Validator, MobileValidator, PasswordValida
             if (!mobileNumCheck(mobile)) {
                 errors.rejectValue("mobile", "Validation.mobile");
             }
+
             mobile = mobile.replaceAll("\\D", "");
             joinForm.setMobile(mobile);
         }
 
         // 6. 필수 약관 동의 체크
-        if (agrees != null && agrees.length > 0 ) {
+        if (agrees != null && agrees.length > 0) {
             for (boolean agree : agrees) {
                 if (!agree) {
                     errors.reject("Validation.joinForm.agree");
