@@ -1,11 +1,12 @@
 package boardproject.models.member;
 
+import boardproject.commons.constants.Role;
 import boardproject.controllers.members.JoinForm;
 import boardproject.entities.Member;
 import boardproject.repositories.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,11 +18,13 @@ import org.springframework.stereotype.Service;
 public class MemberSaveService {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public void save(JoinForm joinForm) {
 
         Member member = new ModelMapper().map(joinForm, Member.class);
+        member.setRoles(Role.USER);
+
         member.setUserPw(passwordEncoder.encode(joinForm.getUserPw()));
 
         memberRepository.saveAndFlush(member);
