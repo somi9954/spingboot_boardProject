@@ -1,5 +1,6 @@
 package boardproject.entities;
 
+import boardproject.commons.constants.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
         @Index(name = "idx_member_userNm", columnList = "userNm"),
         @Index(name = "idx_member_email", columnList = "email")
 })
+
 public class Member extends BaseEntity{
     @Id @GeneratedValue
     private Long userNo; // 회원번호
@@ -34,4 +36,8 @@ public class Member extends BaseEntity{
 
     @Lob
     private String termsAgree; // 약관 동의 내역
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10, nullable = false)
+    private Role roles = Role.USER;
 }
