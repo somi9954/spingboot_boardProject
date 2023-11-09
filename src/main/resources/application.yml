@@ -52,12 +52,10 @@ spring:
     level:
       org:
         hibernate:
+          SQL: debug
           type:
             descriptor:
               sql: trace
-        springframework:
-          core:
-            LocalVariableTableParameterNameDiscoverer: error
 
   file: # 파일 업로드 경로 설정
     upload:
