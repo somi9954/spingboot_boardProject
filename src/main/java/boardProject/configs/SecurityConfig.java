@@ -7,17 +7,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 @EnableWebSecurity
@@ -51,7 +46,7 @@ public class SecurityConfig {
 
         http.authorizeRequests(f -> {
                 f.requestMatchers(new AntPathRequestMatcher("/mypage/**")).authenticated() // 회원 전용 Url
-                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAuthority("ADMIN") // 관리자 전용
+//                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAuthority("ADMIN") // 관리자 전용
                 .anyRequest().permitAll(); // 그 외 모든 페이지는 모든 회원이 접근 가능
         });
 
@@ -82,15 +77,11 @@ public class SecurityConfig {
     }
     */
     @Bean
-    @Order(0)
     SecurityFilterChain staticEndpoints(HttpSecurity http) throws Exception {
         http
                 .securityMatcher("/css/**", "/js/**", "/images/**", "/errors/**","/h2-console/**")
                 .headers((headers) -> headers.cacheControl((cache) -> cache.disable()))
-                .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll())
-                .csrf(c -> {
-                   c.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"));
-                });
+                .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll());
         return http.build();
     }
     @Bean
