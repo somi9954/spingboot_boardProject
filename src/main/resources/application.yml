@@ -22,18 +22,11 @@ spring:
     mode: HTML
     cache: false
 
-  #web:  # 정적 자원 설정(CSS, JS, Images)
-  #  resources:
-  #    static-locations:
-  #      file: src/main/resources/static/
-
   datasource: # 데이터 베이스 연결 설정
     driverClassName: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@localhost:1521/orcl
     username: BOARDPROJECT
     password: _aA123456
-
-
 
 # JPA 설정
   jpa:
@@ -46,7 +39,7 @@ spring:
         use_sql_comments: true
         dialect: org.hibernate.dialect.OracleDialect
     hibernate:
-      ddlAuto: create
+      ddl-Auto: update
 
   logging:
     level:
@@ -56,8 +49,16 @@ spring:
           type:
             descriptor:
               sql: trace
+        springframework:
+          core:
+            LocalVariableTableParameterNameDiscoverer: error
 
   file: # 파일 업로드 경로 설정
     upload:
       path: C:/uploads/
       url: /uploads/
+
+  web: # 정적 자원 설정(CSS, JS, 이미지)
+    resources:
+      static-locations: file:src/main/resources/static/
+
