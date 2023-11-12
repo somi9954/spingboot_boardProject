@@ -1,14 +1,21 @@
 package boardProject.controllers.admins;
 
+import boardProject.commons.CommonException;
 import boardProject.commons.MenuDetail;
 import boardProject.commons.Menus;
+import boardProject.entities.Board;
+import boardProject.models.board.config.BoardConfigListService;
+import boardProject.models.board.config.BoardConfigSaveService;
+import boardProject.models.board.config.BoardconfigInfoService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +25,9 @@ import java.util.List;
 public class BoardController {
 
     private final HttpServletRequest request;
+    private final BoardConfigSaveService configSaveService;
+    private final BoardconfigInfoService boardconfigInfoService;
+    private final BoardConfigListService boardConfigListService;
 
     /**
      * 게시판 목록
@@ -25,8 +35,12 @@ public class BoardController {
      * @return
      */
     @GetMapping
-    public String index(Model model) {
+    public String index(@ModelAttribute BoardSearch boardSearch,Model model) {
         commonProcess(model, "게시판 목록");
+
+        Page<Board> data  = boardConfigListService.gets(boardSearch);
+        model.addAttribute("items", data.getContent());
+
         return "admin/board/index";
     }
 
@@ -36,15 +50,46 @@ public class BoardController {
      * @return
      */
     @GetMapping("/register")
-    public String register(Model model) {
+    public String register(@ModelAttribute BoardForm boardForm, Model model) {
         commonProcess(model, "게시판 등록");
+
         return "admin/board/config";
     }
 
-    @GetMapping("/{id}/update")
+    @GetMapping("/{bId}/update")
     public String update(@PathVariable String bId, Model model) {
         commonProcess(model, "게시판 수정");
+
+        Board board = boardconfigInfoService.get(bId, true);
+        BoardForm boardForm = new ModelMapper().map(board, BoardForm.class);
+        boardForm.setMode("update");
+        boardForm.setListAccessRole(board.getListAccessRole().toString());
+        boardForm.setViewAccessRole(board.getViewAccessRole().toString());
+        boardForm.setWriteAccessRole(board.getWriteAccessRole().toString());
+        boardForm.setReplyAccessRole(board.getReplyAccessRole().toString());
+        boardForm.setCommentAccessRole(board.getCommentAccessRole().toString());
+
+        model.addAttribute("boardForm", boardForm);
+
         return "admin/board/config";
+    }
+
+    @PostMapping("/save")
+    public String save(@Valid BoardForm boardForm, Errors errors, Model model) {
+        String mode = boardForm.getMode();
+        commonProcess(model, mode != null && mode.equals("update") ? "게시판 수정" : "게시판 등록");
+
+        try {
+            configSaveService.save(boardForm, errors);
+        } catch (CommonException e) {
+            errors.reject("BoardConfigError", e.getMessage());
+        }
+
+        if (errors.hasErrors()) {
+            return "admin/board/config";
+        }
+
+        return "redirect:/admin/board"; // 게시판 목록
     }
 
     private void commonProcess(Model model, String title){
