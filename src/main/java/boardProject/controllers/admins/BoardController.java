@@ -6,7 +6,7 @@ import boardProject.commons.Menus;
 import boardProject.entities.Board;
 import boardProject.models.board.config.BoardConfigListService;
 import boardProject.models.board.config.BoardConfigSaveService;
-import boardProject.models.board.config.BoardconfigInfoService;
+import boardProject.models.board.config.BoardConfigInfoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class BoardController {
 
     private final HttpServletRequest request;
     private final BoardConfigSaveService configSaveService;
-    private final BoardconfigInfoService boardconfigInfoService;
+    private final BoardConfigInfoService boardConfigInfoService;
     private final BoardConfigListService boardConfigListService;
 
     /**
@@ -35,10 +35,10 @@ public class BoardController {
      * @return
      */
     @GetMapping
-    public String index(@ModelAttribute BoardSearch boardSearch,Model model) {
+    public String index(@ModelAttribute BoardSearch boardSearch, Model model) {
         commonProcess(model, "게시판 목록");
 
-        Page<Board> data  = boardConfigListService.gets(boardSearch);
+        Page<Board> data = boardConfigListService.gets(boardSearch);
         model.addAttribute("items", data.getContent());
 
         return "admin/board/index";
@@ -46,7 +46,6 @@ public class BoardController {
 
     /**
      * 게시판 등록
-     *
      * @return
      */
     @GetMapping("/register")
@@ -60,7 +59,7 @@ public class BoardController {
     public String update(@PathVariable String bId, Model model) {
         commonProcess(model, "게시판 수정");
 
-        Board board = boardconfigInfoService.get(bId, true);
+        Board board = boardConfigInfoService.get(bId, true);
         BoardForm boardForm = new ModelMapper().map(board, BoardForm.class);
         boardForm.setMode("update");
         boardForm.setListAccessRole(board.getListAccessRole().toString());
@@ -89,14 +88,18 @@ public class BoardController {
             return "admin/board/config";
         }
 
+
         return "redirect:/admin/board"; // 게시판 목록
     }
 
-    private void commonProcess(Model model, String title){
+    private void commonProcess(Model model, String title) {
         String URI = request.getRequestURI();
 
         // 서브 메뉴 처리
         String subMenuCode = Menus.getSubMenuCode(request);
+
+        subMenuCode = title.equals("게시판 수정") ? "register" : subMenuCode;
+
         model.addAttribute("subMenuCode", subMenuCode);
 
         List<MenuDetail> submenus = Menus.gets("board");

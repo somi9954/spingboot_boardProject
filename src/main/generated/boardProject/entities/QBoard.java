@@ -30,10 +30,10 @@ public class QBoard extends EntityPathBase<Board> {
     public final EnumPath<boardProject.commons.constants.Role> commentAccessRole = createEnum("commentAccessRole", boardProject.commons.constants.Role.class);
 
     //inherited
-    public final StringPath createBy = _super.createBy;
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     //inherited
-    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+    public final StringPath createdBy = _super.createdBy;
 
     public final EnumPath<boardProject.commons.constants.Role> listAccessRole = createEnum("listAccessRole", boardProject.commons.constants.Role.class);
 

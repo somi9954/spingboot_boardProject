@@ -4,10 +4,10 @@ import boardProject.commons.CommonException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice("boardProject.controllers")
+@ControllerAdvice("boardProject.controllers")
 public class CommonController {
 
     @ExceptionHandler(Exception.class)

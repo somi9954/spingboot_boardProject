@@ -26,13 +26,13 @@ public class MvcConfig implements WebMvcConfigurer {
     private final SiteConfigInterceptor siteConfigInterceptor;
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-       registry.addViewController("/")
-               .setViewName("main/index");
+        registry.addViewController("/")
+                .setViewName("main/index");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**")
+        registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:///" + fileUploadPath);
     }
 
@@ -46,12 +46,14 @@ public class MvcConfig implements WebMvcConfigurer {
     public MessageSource messageSource() {
         ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
         ms.setDefaultEncoding("UTF-8");
-        ms.setBasenames("messages.commons", "messages.validations", "messages.errors" );
+        ms.setBasenames("messages.commons", "messages.validations", "messages.errors");
 
         return ms;
     }
     @Bean
-    public HiddenHttpMethodFilter httpMethodFilter() { //GET, POST외에 DELETE, PATCH, PUT... 추가
+    public HiddenHttpMethodFilter httpMethodFilter() {  // GET, POST외에 DELETE, PATCH, PUT ....
+
+
         return new HiddenHttpMethodFilter();
     }
 }

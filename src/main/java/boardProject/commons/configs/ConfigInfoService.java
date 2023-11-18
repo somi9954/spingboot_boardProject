@@ -15,7 +15,7 @@ public class ConfigInfoService {
     private final ConfigsRepository repository;
 
     public <T> T get(String code, Class<T> clazz) {
-        return  get(code, clazz, null);
+        return get(code, clazz, null);
     }
 
     public <T> T get(String code, TypeReference<T> type) {
@@ -34,7 +34,7 @@ public class ConfigInfoService {
         T data = null;
         try {
 
-            if (clazz == null)  data = om.readValue(value, typeReference);
+            if (clazz == null) data = om.readValue(value, typeReference);
             else data = om.readValue(value, clazz);
 
         } catch (JsonProcessingException e) {
