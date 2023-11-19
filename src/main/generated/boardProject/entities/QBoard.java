@@ -35,6 +35,9 @@ public class QBoard extends EntityPathBase<Board> {
     //inherited
     public final StringPath createdBy = _super.createdBy;
 
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> deletedAt = _super.deletedAt;
+
     public final EnumPath<boardProject.commons.constants.Role> listAccessRole = createEnum("listAccessRole", boardProject.commons.constants.Role.class);
 
     public final StringPath locationAfterWriting = createString("locationAfterWriting");

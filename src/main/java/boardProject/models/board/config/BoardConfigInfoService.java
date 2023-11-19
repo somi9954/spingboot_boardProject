@@ -49,6 +49,14 @@ public class BoardConfigInfoService {
      * @param board
      */
     public void accessCheck(Board board, String location) {
+
+        /**
+         * use -  false: 모든 항목 접근 불가, 단 관리자만 접근 가능
+         */
+        if (!board.isUse() && !memberUtil.isAdmin()) {
+            throw new BoardNotAllowAccessException();
+        }
+
         Role role = Role.ALL;
         if (location.equals("list")) { // 목록 접근 권한
             role = board.getListAccessRole();
@@ -70,7 +78,5 @@ public class BoardConfigInfoService {
             || (role == Role.ADMIN && !memberUtil.isAdmin())) {
             throw new BoardNotAllowAccessException();
         }
-
-
     }
 }

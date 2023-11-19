@@ -30,4 +30,6 @@ public class BoardForm {
     @NotBlank
     private String content; // 내용
 
+    private Long userNo; // 회원번호
+
 }

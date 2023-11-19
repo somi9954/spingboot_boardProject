@@ -35,6 +35,9 @@ public class QBoardData extends EntityPathBase<BoardData> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> deletedAt = _super.deletedAt;
+
     public final StringPath gid = createString("gid");
 
     public final StringPath guestPw = createString("guestPw");

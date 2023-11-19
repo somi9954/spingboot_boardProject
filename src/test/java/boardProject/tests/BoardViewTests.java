@@ -1,12 +1,15 @@
 package boardProject.tests;
 
+import boardProject.commons.constants.Role;
 import boardProject.controllers.boards.BoardForm;
 import boardProject.entities.Board;
 import boardProject.models.board.BoardDataInfoService;
-import boardProject.models.board.BoardDataNotExistException;
+import boardProject.models.board.BoardDataNotExistsException;
 import boardProject.models.board.BoardDataSaveService;
 import boardProject.models.board.config.BoardConfigInfoService;
 import boardProject.models.board.config.BoardConfigSaveService;
+import boardProject.models.board.config.BoardNotAllowAccessException;
+import boardProject.repositories.BoardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,6 +35,9 @@ public class BoardViewTests {
     private Long id; // 게시글 번호
 
     @Autowired
+    private BoardRepository boardRepository;
+
+    @Autowired
     private BoardDataSaveService saveService;
 
     @Autowired
@@ -45,14 +51,23 @@ public class BoardViewTests {
 
     private BoardForm boardForm2;
 
+    private String bId = "freetalk"; // 게시판 ID
+
+    private Board getBoard() {
+        board = configInfoService.get(bId , true);
+
+        return board;
+    }
+
     @BeforeEach
     void init() {
         // 게시판 설정 추가
         boardProject.controllers.admins.BoardForm boardForm = new boardProject.controllers.admins.BoardForm();
-        boardForm.setBId("freetalk");
+        boardForm.setBId(bId);
         boardForm.setBName("자유게시판");
+        boardForm.setUse(true);
         configSaveService.save(boardForm);
-        board = configInfoService.get(boardForm.getBId(), true);
+        board = getBoard();
 
         // 테스트용 기본 게시글 추가
         boardForm2 = BoardForm.builder()
@@ -80,10 +95,33 @@ public class BoardViewTests {
     @Test
     @DisplayName("등록되지 않은 게시글이면 BoardDataNotExistException 발생")
     void getBoardDataNotExistsTest() {
-        assertThrows(BoardDataNotExistException.class, () -> {
+        assertThrows(BoardDataNotExistsException.class, () -> {
            infoService.get(id + 10);
         });
     }
 
+    @Test
+    @DisplayName("게시판 사용 여부(use)가 false면 접근 불가 - BoardNotAllowAccessException 발생")
+    void accessAuthCheck1Test(){
+        assertThrows(BoardNotAllowAccessException.class, () -> {
+            Board board = getBoard();
+            board.setUse(false);
+            boardRepository.saveAndFlush(board);
 
+            infoService.get(id);
+        });
+    }
+
+    @Test
+    @DisplayName("회원 전용 글보기 권한 - 비회원 접속시 BoardNotAllowAccessException 발생")
+    void accessAuthCheck2Test() {
+        assertThrows(BoardNotAllowAccessException.class, () -> {
+           Board board = getBoard();
+           board.setUse(true);
+           board.setViewAccessRole(Role.USER);
+           boardRepository.saveAndFlush(board);
+
+           infoService.get(id);
+        });
+    }
 }

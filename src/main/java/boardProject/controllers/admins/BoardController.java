@@ -73,6 +73,7 @@ public class BoardController {
         return "admin/board/config";
     }
 
+
     @PostMapping("/save")
     public String save(@Valid BoardForm boardForm, Errors errors, Model model) {
         String mode = boardForm.getMode();
@@ -87,7 +88,6 @@ public class BoardController {
         if (errors.hasErrors()) {
             return "admin/board/config";
         }
-
 
         return "redirect:/admin/board"; // 게시판 목록
     }
