@@ -36,9 +36,9 @@ spring:
         show_sql: true
         format_sql: true
         use_sql_comments: true
-        dialect: org.hibernate.dialect.OracleDialect
+        #dialect: org.hibernate.dialect.OracleDialect HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default) 사유로 제거
     hibernate:
-      ddl-Auto: update
+      ddl-Auto: create
 
   logging:
     level:

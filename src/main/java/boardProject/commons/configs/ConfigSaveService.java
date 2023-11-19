@@ -20,7 +20,7 @@ public class ConfigSaveService {
         ObjectMapper om = new ObjectMapper();
         String value = null;
         try {
-            value= om.writeValueAsString(t);
+            value = om.writeValueAsString(t);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
