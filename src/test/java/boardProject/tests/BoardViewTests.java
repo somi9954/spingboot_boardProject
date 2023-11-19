@@ -84,4 +84,6 @@ public class BoardViewTests {
            infoService.get(id + 10);
         });
     }
+
+
 }
