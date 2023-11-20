@@ -1,8 +1,8 @@
 package boardProject.models.board.config;
 
 import boardProject.controllers.admins.BoardSearch;
-import boardProject.entities.Board;
-import boardProject.entities.QBoard;
+import boardProject.entities.board.Board;
+import boardProject.entities.board.QBoard;
 import boardProject.repositories.BoardRepository;
 import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;

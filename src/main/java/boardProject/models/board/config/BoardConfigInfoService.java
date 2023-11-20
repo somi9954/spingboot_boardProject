@@ -2,7 +2,7 @@ package boardProject.models.board.config;
 
 import boardProject.commons.MemberUtil;
 import boardProject.commons.constants.Role;
-import boardProject.entities.Board;
+import boardProject.entities.board.Board;
 import boardProject.repositories.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

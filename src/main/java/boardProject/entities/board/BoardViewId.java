@@ -1,4 +1,4 @@
-package boardProject.entities;
+package boardProject.entities.board;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

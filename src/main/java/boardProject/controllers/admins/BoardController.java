@@ -3,7 +3,7 @@ package boardProject.controllers.admins;
 import boardProject.commons.CommonException;
 import boardProject.commons.MenuDetail;
 import boardProject.commons.Menus;
-import boardProject.entities.Board;
+import boardProject.entities.board.Board;
 import boardProject.models.board.config.BoardConfigListService;
 import boardProject.models.board.config.BoardConfigSaveService;
 import boardProject.models.board.config.BoardConfigInfoService;

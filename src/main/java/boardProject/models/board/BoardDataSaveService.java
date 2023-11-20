@@ -2,8 +2,8 @@ package boardProject.models.board;
 
 import boardProject.commons.MemberUtil;
 import boardProject.controllers.boards.BoardForm;
-import boardProject.entities.Board;
-import boardProject.entities.BoardData;
+import boardProject.entities.board.Board;
+import boardProject.entities.board.BoardData;
 import boardProject.models.board.config.BoardConfigInfoService;
 import boardProject.repositories.BoardDataRepository;
 import jakarta.servlet.http.HttpServletRequest;

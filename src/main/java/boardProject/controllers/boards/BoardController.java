@@ -2,8 +2,8 @@ package boardProject.controllers.boards;
 
 import boardProject.commons.CommonException;
 import boardProject.commons.MemberUtil;
-import boardProject.entities.Board;
-import boardProject.entities.BoardData;
+import boardProject.entities.board.Board;
+import boardProject.entities.board.BoardData;
 import boardProject.entities.Member;
 import boardProject.models.board.*;
 import boardProject.models.board.config.BoardConfigInfoService;
@@ -221,6 +221,7 @@ public class BoardController {
             if (board.isUseEditor()) { // 에디터 사용 경우
                 addScript.add("ckeditor/ckeditor");
             }
+            addScript.add("fileManager");
             addScript.add("board/form");
         }
 
@@ -266,10 +267,6 @@ public class BoardController {
                 throw new BoardNotAllowAccessException();
             }
         }
-
-
-
-
     }
 
     public void updateDeletePossibleCheck(Long id) {

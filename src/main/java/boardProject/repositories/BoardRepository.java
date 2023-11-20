@@ -1,6 +1,6 @@
 package boardProject.repositories;
 
-import boardProject.entities.Board;
+import boardProject.entities.board.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 

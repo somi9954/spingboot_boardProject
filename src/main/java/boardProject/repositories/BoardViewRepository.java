@@ -1,8 +1,8 @@
 package boardProject.repositories;
 
-import boardProject.entities.BoardView;
-import boardProject.entities.BoardViewId;
-import boardProject.entities.QBoardView;
+import boardProject.entities.board.BoardView;
+import boardProject.entities.board.BoardViewId;
+import boardProject.entities.board.QBoardView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 

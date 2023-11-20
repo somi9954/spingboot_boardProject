@@ -1,4 +1,4 @@
-package boardProject.entities;
+package boardProject.entities.board;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QBoardView extends EntityPathBase<BoardView> {
 
-    private static final long serialVersionUID = 991552793L;
+    private static final long serialVersionUID = -1500406383L;
 
     public static final QBoardView boardView = new QBoardView("boardView");
 

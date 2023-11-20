@@ -1,6 +1,8 @@
-package boardProject.entities;
+package boardProject.entities.board;
 
 
+import boardProject.entities.BaseEntity;
+import boardProject.entities.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

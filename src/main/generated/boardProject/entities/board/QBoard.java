@@ -1,4 +1,4 @@
-package boardProject.entities;
+package boardProject.entities.board;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,11 +15,11 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QBoard extends EntityPathBase<Board> {
 
-    private static final long serialVersionUID = 454131796L;
+    private static final long serialVersionUID = 845690060L;
 
     public static final QBoard board = new QBoard("board");
 
-    public final QBaseMemberEntity _super = new QBaseMemberEntity(this);
+    public final boardProject.entities.QBaseMemberEntity _super = new boardProject.entities.QBaseMemberEntity(this);
 
     public final StringPath bId = createString("bId");
 

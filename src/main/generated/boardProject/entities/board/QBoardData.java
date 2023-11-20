@@ -1,4 +1,4 @@
-package boardProject.entities;
+package boardProject.entities.board;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,13 +16,13 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QBoardData extends EntityPathBase<BoardData> {
 
-    private static final long serialVersionUID = 991009310L;
+    private static final long serialVersionUID = -1500949866L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QBoardData boardData = new QBoardData("boardData");
 
-    public final QBaseEntity _super = new QBaseEntity(this);
+    public final boardProject.entities.QBaseEntity _super = new boardProject.entities.QBaseEntity(this);
 
     public final QBoard board;
 
@@ -48,7 +48,7 @@ public class QBoardData extends EntityPathBase<BoardData> {
 
     public final StringPath ip = createString("ip");
 
-    public final QMember member;
+    public final boardProject.entities.QMember member;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
@@ -78,7 +78,7 @@ public class QBoardData extends EntityPathBase<BoardData> {
     public QBoardData(Class<? extends BoardData> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.board = inits.isInitialized("board") ? new QBoard(forProperty("board")) : null;
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new boardProject.entities.QMember(forProperty("member")) : null;
     }
 
 }

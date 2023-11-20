@@ -1,6 +1,6 @@
 package boardProject.models.board;
 
-import boardProject.entities.BoardData;
+import boardProject.entities.board.BoardData;
 import boardProject.repositories.BoardDataRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package boardProject.models.board;
 
 import boardProject.commons.MemberUtil;
-import boardProject.entities.BoardData;
+import boardProject.entities.board.BoardData;
 import boardProject.models.board.config.BoardConfigInfoService;
 import boardProject.repositories.BoardDataRepository;
 import lombok.RequiredArgsConstructor;

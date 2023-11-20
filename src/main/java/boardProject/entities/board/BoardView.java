@@ -1,4 +1,4 @@
-package boardProject.entities;
+package boardProject.entities.board;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
