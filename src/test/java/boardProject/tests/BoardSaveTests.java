@@ -5,7 +5,7 @@ import boardProject.commons.configs.ConfigSaveService;
 import boardProject.controllers.admins.ConfigForm;
 import boardProject.controllers.boards.BoardForm;
 import boardProject.controllers.members.JoinForm;
-import boardProject.entities.Board;
+import boardProject.entities.board.Board;
 import boardProject.models.board.BoardDataSaveService;
 import boardProject.models.board.BoardValidationException;
 import boardProject.models.board.config.BoardConfigInfoService;
@@ -111,9 +111,7 @@ public class BoardSaveTests {
     @DisplayName("게시글 등록(비회원) 성공시 예외 없음")
     @WithAnonymousUser
     void registerGuestSuccessTest() {
-        assertDoesNotThrow(() -> {
-            saveService.save(getGuestBoardForm());
-        });
+        assertDoesNotThrow(() -> saveService.save(getGuestBoardForm()));
     }
 
     @Test
@@ -121,9 +119,7 @@ public class BoardSaveTests {
     @WithMockUser(username = "user01", password = "_aA123456")
     @Disabled
     void registerMemberSuccessTest() {
-        assertDoesNotThrow(() -> {
-            saveService.save(getCommonBoardForm());
-        });
+        assertDoesNotThrow(() -> saveService.save(getCommonBoardForm()));
     }
 
     // 공통(회원, 비회원) 유효성 검사 체크

@@ -2,14 +2,16 @@ package boardProject.tests;
 
 import boardProject.commons.constants.Role;
 import boardProject.controllers.boards.BoardForm;
-import boardProject.entities.Board;
+import boardProject.entities.board.Board;
 import boardProject.models.board.BoardDataInfoService;
 import boardProject.models.board.BoardDataNotExistsException;
 import boardProject.models.board.BoardDataSaveService;
 import boardProject.models.board.config.BoardConfigInfoService;
 import boardProject.models.board.config.BoardConfigSaveService;
 import boardProject.models.board.config.BoardNotAllowAccessException;
+import boardProject.models.post.PostService;
 import boardProject.repositories.BoardRepository;
+import boardProject.repositories.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,6 +50,12 @@ public class BoardViewTests {
 
     @Autowired
     private BoardDataInfoService infoService;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private PostService postService;
 
     private BoardForm boardForm2;
 
