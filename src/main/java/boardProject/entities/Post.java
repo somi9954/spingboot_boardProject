@@ -1,10 +1,9 @@
 package boardProject.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.Date;
 
 @Entity
 @Data
@@ -17,4 +16,7 @@ public class Post {
     private String title;
 
     private String content;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;  // createDate 필드 추가
 }

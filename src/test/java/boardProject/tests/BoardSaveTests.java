@@ -195,15 +195,15 @@ public class BoardSaveTests {
 
         assertAll(
                 () -> assertThrows(BoardValidationException.class, () -> {
-                        BoardForm boardForm = getGuestBoardForm();
-                        boardForm.setGuestPw(null);
-                        saveService.save(boardForm);
-                    }),
+                    BoardForm boardForm = getGuestBoardForm();
+                    boardForm.setGuestPw(null);
+                    saveService.save(boardForm);
+                }),
                 () -> assertThrows(BoardValidationException.class, () -> {
-                        BoardForm boardForm = getGuestBoardForm();
-                        boardForm.setGuestPw("   ");
-                        saveService.save(boardForm);
-                    }),
+                    BoardForm boardForm = getGuestBoardForm();
+                    boardForm.setGuestPw("   ");
+                    saveService.save(boardForm);
+                }),
                 () -> assertThrows(BoardValidationException.class, () -> {
                     BoardForm boardForm = getGuestBoardForm();
                     boardForm.setGuestPw("1234");

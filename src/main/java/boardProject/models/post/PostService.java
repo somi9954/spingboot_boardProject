@@ -25,7 +25,8 @@ public class PostService {
     @Scheduled(cron = "0 0 1 * * ?")
     public void fetchPostsDaily() {
         // 데이터베이스에서 게시글을 조회
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findAllByOrderByCreateDateDesc();
+
 
         // 게시글 조회
         posts.forEach(post -> {

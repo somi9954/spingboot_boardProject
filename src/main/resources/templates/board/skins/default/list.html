@@ -2,6 +2,79 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="skin">
     <th:block th:replace="~{board/skins/default/_board_title::title}"></th:block>
-    기본 리스트 스킨
+    <section th:fragment="content">
+        <h1>게시판 검색</h1>
+        <form name="frmSearch" method="get" th:action="@{/admin/board}" autocomplete="off" th:object="${boardSearch}">
+            <table class="table-cols">
+                <tr>
+                    <th>검색어</th>
+                    <td>
+                        <div class="input_grp">
+                            <select name="sopt" th:field="*{sopt}">
+                                <option value="all">통합검색</option>
+                                <option value="bId">게시판 ID</option>
+                                <option value="bName">게시판명</option>
+                            </select>
+                            <input type="text" name="skey" th:field="*{skey}" placeholder="검색어 입력...">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="search_btn">
+                <button type="submit">조회하기</button>
+            </div>
+        </form>
+
+        <h1>게시판 목록</h1>
+        <form name='frmList' method="post" th:action="@{/admin/board}" autocomplete="off" target="ifrmProcess">
+            <input type="hidden" name="_method" value="patch">
+
+            <table class="table-rows">
+                <thead>
+                <tr>
+                    <th width="40">
+                        <input type="checkbox" class="checkall" id="checkall" data-target-name="bId">
+                        <label for="checkall"></label>
+                    </th>
+                    <th width="150">게시판 ID</th>
+                    <th width="300">게시판명</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item, status : ${items}" th:object="${item}">
+                    <td align="center">
+                        <input type="checkbox" name="bId" th:value="*{bId}" th:id="${'bid_' + status.index}">
+                        <label th:for="${'bid_' + status.index}"></label>
+                    </td>
+                    <td align="center" th:text="*{bId}"></td>
+                    <td align="center" th:text="*{bName}"></td>
+                    <td>
+                        <a th:href="@{/admin/board/{bId}/update(bId=*{bId})}" class="sbtn">설정수정</a>
+                        <a th:href="@{/board/list/{bId}(bId=*{bId})}" class="sbtn">미리보기</a>
+                        <a th:href="@{/board/write/{bId}(bId=*{bId})}" class="sbtn blue">글쓰기</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="table-action">
+                <button type="button" class="sbtn"> 수정하기</button>
+                <button type="button" class="sbtn blue"> 삭제하기</button>
+
+                <!--/* 페이지네이션 */-->
+                <div class="paging">
+                    <a href="#" class="page_bt first">첫 페이지</a><a href="#" class="page_bt prev">이전 페이지 그룹</a>
+                    <p><span class="on">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a></p>
+                    <a href="#" class="page_bt next">다음 페이지 그룹</a><a href="#" class="page_bt last">마지막 페이지</a>
+                </div>
+
+                <!--/* 버튼 */-->
+                <p class="btns">
+                    <button type="submit" th:text="#{board.write}">글쓰기</button>
+                </p>
+            </div>
+        </form>
+    </section>
+    </th:block>
 </th:block>
 </html>

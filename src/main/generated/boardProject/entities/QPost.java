@@ -21,6 +21,8 @@ public class QPost extends EntityPathBase<Post> {
 
     public final StringPath content = createString("content");
 
+    public final DateTimePath<java.util.Date> createDate = createDateTime("createDate", java.util.Date.class);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath title = createString("title");

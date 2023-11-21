@@ -29,6 +29,9 @@ public class BoardController {
     private final BoardConfigInfoService boardConfigInfoService;
     private final BoardConfigListService boardConfigListService;
 
+    private Board board; // 게시판 설정
+
+
     /**
      * 게시판 목록
      *
@@ -73,6 +76,17 @@ public class BoardController {
         return "admin/board/config";
     }
 
+    /**
+     * 게시글 관리
+     * @param bId
+     * @return
+     */
+    @GetMapping("/posts")
+    public String openPostList(@PathVariable String bId, Model model) {
+        commonProcess(model, "게시판 관리");
+
+        return "board/posts";
+    }
 
     @PostMapping("/save")
     public String save(@Valid BoardForm boardForm, Errors errors, Model model) {
@@ -92,7 +106,10 @@ public class BoardController {
         return "redirect:/admin/board"; // 게시판 목록
     }
 
+
+
     private void commonProcess(Model model, String title) {
+
         String URI = request.getRequestURI();
 
         // 서브 메뉴 처리
