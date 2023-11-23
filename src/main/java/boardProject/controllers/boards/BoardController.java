@@ -178,7 +178,7 @@ public class BoardController {
 
         // 비회원 비밀번호 확인 후 이동 경로
         /**
-         String url = mode == "comment" ? "/board/" + id + "/comment" : "/board/" + id + "/update";
+        String url = mode == "comment" ? "/board/" + id + "/comment" : "/board/" + id + "/update";
          */
         String url = "/board/" + id + "/update";
         if (mode.equals("comment")) { // 댓글 삭제
