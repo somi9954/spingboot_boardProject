@@ -51,7 +51,9 @@
         <dt th:text="#{board.attach.file}"></dt>
         <dd>
             <button type="button" class="attachFiles" th:text="#{board.attach.file}"></button>
-            <div class="attachedFiles files"></div>
+            <div class="attachedFiles files" th:each="file : ${all}">
+            <a th:href=" |/upload/${file.id}|" th:text="${file.fileName}"></a>
+            </div>
         </dd>
     </dl>
 
