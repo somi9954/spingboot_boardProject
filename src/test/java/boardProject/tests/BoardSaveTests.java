@@ -24,13 +24,15 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ResourceBundle;
+import java.nio.charset.Charset;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -221,29 +223,18 @@ public class BoardSaveTests {
 
 
     @Test
-    @DisplayName("통합테스트 - 비회원 게시글 작성 유효성 검사")
-    @Disabled
-    void requiredFieldsGuestControllerTest() throws Exception {
-        BoardForm boardForm = getGuestBoardForm();
-        String body = mockMvc.perform(post("/board/save")
-                        .param("bId", boardForm.getBId())
-                        .param("gid", boardForm.getGid())
-                        .with(csrf().asHeader()))
-                        .andDo(print())
-                        .andReturn()
-                        .getResponse()
-                        .getContentAsString();
-        ResourceBundle bundle = ResourceBundle.getBundle("messages.validations");
-        String[] messages = {
-                bundle.getString("NotBlank.boardForm.writer"),
-                bundle.getString("NotBlank.boardForm.subject"),
-                bundle.getString("NotBlank.boardForm.content"),
-                bundle.getString("NotBlank.boardForm.guestPw"),
-                bundle.getString("Size.boardForm.guestPw"),
-        };
+    @DisplayName("게시판 설정 저장 테스트 - 유효성 검사")
+    void boardConfigTest() throws Exception {
+        String body = mockMvc.perform(
+                        post("/admin/board/save")
+                                .with(csrf())
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn().getResponse()
+                .getContentAsString(Charset.forName("UTF-8"));
 
-        for (String message: messages) {
-            assertTrue(body.contains(message));
-        }
+        assertTrue(body.contains("게시판 ID"));
+        assertTrue(body.contains("게시판명"));
     }
 }
